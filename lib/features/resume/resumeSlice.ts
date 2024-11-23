@@ -18,11 +18,9 @@ export const resumeSlice = createAppSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: (create) => ({
-    incrementByAmount: create.reducer(
-      (state, action: PayloadAction<number>) => {
-        state.value += action.payload;
-      }
-    ),
+    changeCount: create.reducer((state, action: PayloadAction<number>) => {
+      state.value = action.payload;
+    }),
   }),
   // You can define your selectors here. These selectors receive the slice
   // state as their first argument.
@@ -32,7 +30,7 @@ export const resumeSlice = createAppSlice({
   },
 });
 
-export const { incrementByAmount } = resumeSlice.actions;
+export const { changeCount } = resumeSlice.actions;
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
 export const { selectCount, selectStatus } = resumeSlice.selectors;

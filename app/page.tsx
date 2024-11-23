@@ -12,5 +12,5 @@ export default function IndexPage() {
 }
 
 export const metadata: Metadata = {
-  title: "Redux Toolkit",
+  title: "Resume Builder By Mahmoud Bekheet",
 };
