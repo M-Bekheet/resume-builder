@@ -1,6 +1,12 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import { resumeSlice } from "./features/resume/resumeSlice";
+import personalDetailsReducer from "./features/resume/personalDetailsSlice";
+import technicalSkillsReducer from "./features/resume/technicalSkillsSlice";
+import employmentsReducer from "./features/resume/employmentsSlice";
+import certificatesReducer from "./features/resume/certificatesSlice";
+import educationsReducer from "./features/resume/educationSlice";
+import sectionsOrderReducer from "./features/resume/sectionOrderSlice";
+
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
 import {
@@ -14,7 +20,14 @@ import {
   REHYDRATE,
 } from "redux-persist";
 
-const rootReducer = combineSlices(resumeSlice);
+const rootReducer = combineSlices({
+  personalDetails: personalDetailsReducer,
+  technicalSkills: technicalSkillsReducer,
+  employments: employmentsReducer,
+  certificates: certificatesReducer,
+  educations: educationsReducer,
+  sectionsOrder: sectionsOrderReducer,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 
