@@ -8,15 +8,18 @@ export interface PersonalDetails {
   city: string;
   jobTitle: string;
   summary: string;
-  address?: string;
-  postalCode?: string;
-  drivingLicense?: string;
-  nationality?: string;
-  placeOfBirth?: string;
-  dateOfBirth?: string;
+  additionalInfo?: {
+    address?: string;
+    postalCode?: string;
+    drivingLicense?: string;
+    nationality?: string;
+    placeOfBirth?: string;
+    dateOfBirth?: string;
+  };
 }
 
 export interface TechnicalSkill {
+  id: string;
   skill: string;
   level: "Novice" | "Beginner" | "Intermediate" | "Advanced" | "Expert";
 }
@@ -43,13 +46,6 @@ export interface Education {
   date: string;
 }
 
-export interface ResumeState {
-  personalDetails: PersonalDetails[];
-  technicalSkills: TechnicalSkill[];
-  employments: Employment[];
-  certificates: Certificate[];
-  educations: Education[];
-}
 export interface SectionOrder {
   id: string;
   type:
@@ -72,23 +68,27 @@ export const INITIAL_PERSONAL_DETAILS: PersonalDetails[] = [
     country: "USA",
     city: "New York",
     jobTitle: "Software Engineer",
-    address: "123 Main St",
-    postalCode: "10001",
-    drivingLicense: "B",
-    nationality: "American",
-    placeOfBirth: "New York",
-    dateOfBirth: "1990-01-01",
     summary:
       "Experienced software engineer with a passion for developing innovative programs that expedite the efficiency and effectiveness of organizational success.",
+    additionalInfo: {
+      address: "123 Main St",
+      postalCode: "10001",
+      drivingLicense: "B",
+      nationality: "American",
+      placeOfBirth: "New York",
+      dateOfBirth: "1990-01-01",
+    },
   },
 ];
 
 export const INITIAL_TECHNICAL_SKILLS: TechnicalSkill[] = [
   {
+    id: "JavaScript",
     skill: "JavaScript",
     level: "Expert",
   },
   {
+    id: "React",
     skill: "React",
     level: "Advanced",
   },
