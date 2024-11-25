@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INITIAL_TECHNICAL_SKILLS, TechnicalSkill } from "./utils";
 
-// * Skills must not be duplicated by name
 const technicalSkillsSlice = createSlice({
   name: "technicalSkills",
   initialState: INITIAL_TECHNICAL_SKILLS,
@@ -44,9 +43,21 @@ const technicalSkillsSlice = createSlice({
         (skill) => skill.id !== action.payload.skillId
       );
     },
+
+    updateTechnicalSkillsSectionName: (
+      state,
+      action: PayloadAction<{ sectionId: string; name: string }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (section) section.sectionName = action.payload.name;
+    },
   },
 });
 
-export const { addTechnicalSkill, updateTechnicalSkill, deleteTechnicalSkill } =
-  technicalSkillsSlice.actions;
+export const {
+  addTechnicalSkill,
+  updateTechnicalSkill,
+  deleteTechnicalSkill,
+  updateTechnicalSkillsSectionName,
+} = technicalSkillsSlice.actions;
 export default technicalSkillsSlice.reducer;

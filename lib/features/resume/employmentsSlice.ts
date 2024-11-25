@@ -43,9 +43,21 @@ const employmentsSlice = createSlice({
         (employment) => employment.id !== action.payload.employmentId
       );
     },
+
+    updateEmploymentsSectionName: (
+      state,
+      action: PayloadAction<{ sectionId: string; name: string }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (section) section.sectionName = action.payload.name;
+    },
   },
 });
 
-export const { addEmployment, updateEmployment, deleteEmployment } =
-  employmentsSlice.actions;
+export const {
+  addEmployment,
+  updateEmployment,
+  deleteEmployment,
+  updateEmploymentsSectionName,
+} = employmentsSlice.actions;
 export default employmentsSlice.reducer;

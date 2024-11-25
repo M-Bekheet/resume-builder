@@ -38,12 +38,6 @@ const personalDetailsSlice = createSlice({
     deletePersonalDetail: (state, action: PayloadAction<string>) => {
       return state.filter((detail) => detail.id !== action.payload);
     },
-    reorderPersonalDetails: (
-      state,
-      action: PayloadAction<PersonalDetails[]>
-    ) => {
-      return action.payload;
-    },
   },
 });
 
@@ -52,6 +46,5 @@ export const {
   updatePersonalDetail,
   updateAdditionalInfo,
   deletePersonalDetail,
-  reorderPersonalDetails,
 } = personalDetailsSlice.actions;
 export default personalDetailsSlice.reducer;

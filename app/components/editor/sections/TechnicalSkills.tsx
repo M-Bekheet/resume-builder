@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
-import { addTechnicalSkill, deleteTechnicalSkill, updateTechnicalSkill } from '@/lib/features/resume/technicalSkillsSlice';
+import { addTechnicalSkill, deleteTechnicalSkill, updateTechnicalSkill, updateTechnicalSkillsSectionName } from '@/lib/features/resume/technicalSkillsSlice';
 import { TechnicalSkill } from '@/lib/features/resume/utils';
 import { RootState } from '@/lib/store';
 import { Icon } from '@iconify/react';
@@ -44,11 +44,16 @@ function TechnicalSkills({ id }: { id: string }) {
 
   return (
     <section className='px-1'>
+
       <header className='flex items-center gap-2 mt-6 mb-2'>
         <Icon icon="icon-park-outline:drag" />
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight ">
-          Technical Skills
-        </h3>
+        <Input className="scroll-m-20 text-2xl font-semibold tracking-tight border-none " value={technicalSkills?.sectionName} onChange={(e) => {
+          dispatch(updateTechnicalSkillsSectionName({
+            name: e.target.value,
+            sectionId: id
+          }))
+        }} />
+
       </header>
       {technicalSkills.skills.map(skill => (
         <div className='flex gap-2' key={skill.id}>

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import { addEmployment, deleteEmployment, updateEmployment } from '@/lib/features/resume/employmentsSlice';
+import { addEmployment, deleteEmployment, updateEmployment, updateEmploymentsSectionName } from '@/lib/features/resume/employmentsSlice';
 import { Icon } from '@iconify/react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from '@/components/ui/accordion';
@@ -56,7 +56,7 @@ function Employments({ id }: { id: string }) {
     <section className='px-1' >
       <header className='flex items-center gap-2 mt-6 mb-2'>
         <Icon icon="icon-park-outline:drag" />
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h3 className="scroll-m-20 pl-2 text-sm font-semibold tracking-tight">
           Employments
         </h3>
       </header>
