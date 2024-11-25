@@ -1,7 +1,10 @@
 ````markdown
+
 # Resume Builder
 
 This project is a Resume Builder application built with React, Redux, and TypeScript. It allows users to create and manage their resumes with various sections such as Personal Details, Technical Skills, Employments, Certificates, and Educations. The application supports drag-and-drop functionality for reordering sections and uses `redux-persist` for state persistence.
+
+## Status: WIP
 
 ## Features
 
