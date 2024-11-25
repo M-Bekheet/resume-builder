@@ -1,29 +1,112 @@
-# Redux Toolkit TypeScript Example
+````markdown
+# Resume Builder
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+This project is a Resume Builder application built with React, Redux, and TypeScript. It allows users to create and manage their resumes with various sections such as Personal Details, Technical Skills, Employments, Certificates, and Educations. The application supports drag-and-drop functionality for reordering sections and uses `redux-persist` for state persistence.
 
-**Redux Toolkit**(also known as "RTK" for short) provides a standardized way to write Redux logic. It includes utilities that help simplify many common use cases, including [store setup](https://redux-toolkit.js.org/api/configureStore), [creating reducers and writing immutable update logic](https://redux-toolkit.js.org/api/createreducer), and even [creating entire "slices" of state at once](https://redux-toolkit.js.org/api/createslice). This example showcases each of these features in conjunction with Next.js.
+## Features
 
-## Deploy Your Own
+- Personal Details: Manage personal information including name, contact details, and additional information.
+- Technical Skills: Add, update, and delete technical skills with proficiency levels.
+- Employments: Manage employment history with job titles, companies, dates, and descriptions.
+- Certificates: Add and manage certificates with titles and dates.
+- Educations: Manage educational background with titles and dates.
+- Drag-and-Drop: Reorder sections using drag-and-drop functionality.
+- State Persistence: Persist state using `redux-persist`.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## Technologies Used
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
+- React: A JavaScript library for building user interfaces.
+- Redux: A predictable state container for JavaScript apps.
+- TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
+- redux-persist: Persist and rehydrate a Redux store.
+- shadcn/ui: UI components library.
+- Tailwind CSS: A utility-first CSS framework for rapid UI development.
 
-## How to Use
+## Installation
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/M-Bekheet/resume-builder.git
+   cd resume-builder
+   ```
+````
 
-```bash
-npx create-next-app --example with-redux with-redux-app
+2. Install dependencies:
+
+   ```sh
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```sh
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:3000`.
+
+## Usage
+
+1. **Add Sections**: Use the UI to add various sections to your resume.
+2. **Edit Sections**: Click on a section to edit its details.
+3. **Reorder Sections**: Drag and drop sections to reorder them.
+4. **Save and Persist**: Your changes will be automatically saved and persisted.
+
+## Folder Structure
+
+```
+├── public
+├── src
+│   ├── components
+│   │   ├── PersonalDetails.tsx
+│   │   ├── TechnicalSkills.tsx
+│   │   ├── Employments.tsx
+│   │   ├── Certificates.tsx
+│   │   ├── Educations.tsx
+│   │   └── ...
+│   ├── lib
+│   │   ├── features
+│   │   │   ├── resume
+│   │   │   │   ├── personalDetailsSlice.ts
+│   │   │   │   ├── technicalSkillsSlice.ts
+│   │   │   │   ├── employmentsSlice.ts
+│   │   │   │   ├── certificatesSlice.ts
+│   │   │   │   ├── educationsSlice.ts
+│   │   │   │   └── sectionOrderSlice.ts
+│   │   ├── hooks
+│   │   ├── schema
+│   │   ├── store.ts
+│   │   └── utils.ts
+│   ├── pages
+│   │   ├── index.tsx
+│   │   └── ...
+│   └── styles
+│       └── globals.css
+├──
+
+tailwind.config.js
+
+
+├──
+
+package.json
+
+
+└──
+
+README.md
+
+
 ```
 
-```bash
-yarn create next-app --example with-redux with-redux-app
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License.
+
 ```
 
-```bash
-pnpm create next-app --example with-redux with-redux-app
 ```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
