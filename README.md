@@ -1,4 +1,4 @@
-````markdown
+
 
 # Resume Builder
 
@@ -32,7 +32,6 @@ This project is a Resume Builder application built with React, Redux, and TypeSc
    git clone https://github.com/M-Bekheet/resume-builder.git
    cd resume-builder
    ```
-````
 
 2. Install dependencies:
 
@@ -88,7 +87,7 @@ This project is a Resume Builder application built with React, Redux, and TypeSc
 ├── tailwind.config.js
 ├── package.json
 └── README.md
-```
+
 
 ## Contributing
 
@@ -98,6 +97,3 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 This project is licensed under the MIT License.
 
-```
-
-```
