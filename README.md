@@ -85,21 +85,9 @@ This project is a Resume Builder application built with React, Redux, and TypeSc
 │   │   └── ...
 │   └── styles
 │       └── globals.css
-├──
-
-tailwind.config.js
-
-
-├──
-
-package.json
-
-
-└──
-
-README.md
-
-
+├── tailwind.config.js
+├── package.json
+└── README.md
 ```
 
 ## Contributing
