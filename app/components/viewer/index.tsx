@@ -12,7 +12,9 @@ function Viewer() {
       <section className="printable">
         {sectionsOrder?.map(order => <SectionViewer key={order?.id} order={order} />)}
       </section>
-      <Button type="submit">Download</Button>
+      <div className="w-full text-center mt-4">
+        <Button type="submit">Download</Button>
+      </div>
     </div>
   )
 }
