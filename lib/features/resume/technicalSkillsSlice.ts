@@ -6,33 +6,47 @@ const technicalSkillsSlice = createSlice({
   name: "technicalSkills",
   initialState: INITIAL_TECHNICAL_SKILLS,
   reducers: {
-    addTechnicalSkill: (state, action: PayloadAction<TechnicalSkill>) => {
-      state.push(action.payload);
-    },
-    updateTechnicalSkill: (state, action: PayloadAction<TechnicalSkill>) => {
-      const index = state.findIndex(
-        (skill) => skill.skill === action.payload.skill
-      );
-      if (index !== -1) {
-        state[index] = action.payload;
-      }
-    },
-    deleteTechnicalSkill: (state, action: PayloadAction<string>) => {
-      return state.filter((skill) => skill.skill !== action.payload);
-    },
-    reorderTechnicalSkills: (
+    addTechnicalSkill: (
       state,
-      action: PayloadAction<TechnicalSkill[]>
+      action: PayloadAction<{ sectionId: string; skill: TechnicalSkill }>
     ) => {
-      return action.payload;
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (section) section.skills.push(action.payload.skill);
+    },
+    updateTechnicalSkill: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        skill: Partial<TechnicalSkill>;
+      }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (!section) return;
+      const index = section.skills.findIndex(
+        (skill) => skill.id === action.payload.skill.id
+      );
+      if (index !== -1)
+        section.skills[index] = {
+          ...section.skills[index],
+          ...action.payload.skill,
+        };
+    },
+    deleteTechnicalSkill: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        skillId: string;
+      }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (!section) return;
+      section.skills = section.skills.filter(
+        (skill) => skill.id !== action.payload.skillId
+      );
     },
   },
 });
 
-export const {
-  addTechnicalSkill,
-  updateTechnicalSkill,
-  deleteTechnicalSkill,
-  reorderTechnicalSkills,
-} = technicalSkillsSlice.actions;
+export const { addTechnicalSkill, updateTechnicalSkill, deleteTechnicalSkill } =
+  technicalSkillsSlice.actions;
 export default technicalSkillsSlice.reducer;

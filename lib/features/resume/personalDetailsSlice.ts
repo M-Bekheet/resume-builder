@@ -8,13 +8,32 @@ const personalDetailsSlice = createSlice({
     addPersonalDetail: (state, action: PayloadAction<PersonalDetails>) => {
       state.push(action.payload);
     },
-    updatePersonalDetail: (state, action: PayloadAction<PersonalDetails>) => {
+    updatePersonalDetail: (
+      state,
+      action: PayloadAction<Partial<PersonalDetails> & { id: string }>
+    ) => {
+      const { id, ...changes } = action.payload;
       const index = state.findIndex(
         (detail) => detail.id === action.payload.id
       );
-      if (index !== -1) {
-        state[index] = action.payload;
-      }
+      console.log("changes", changes);
+      if (index !== -1) state[index] = { ...state[index], ...changes };
+    },
+    updateAdditionalInfo: (
+      state,
+      action: PayloadAction<
+        Partial<PersonalDetails["additionalInfo"]> & { id: string }
+      >
+    ) => {
+      const { id, ...changes } = action.payload;
+      const index = state.findIndex(
+        (detail) => detail.id === action.payload.id
+      );
+      if (index !== -1)
+        state[index] = {
+          ...state[index],
+          additionalInfo: { ...state[index].additionalInfo, ...changes },
+        };
     },
     deletePersonalDetail: (state, action: PayloadAction<string>) => {
       return state.filter((detail) => detail.id !== action.payload);
@@ -31,6 +50,7 @@ const personalDetailsSlice = createSlice({
 export const {
   addPersonalDetail,
   updatePersonalDetail,
+  updateAdditionalInfo,
   deletePersonalDetail,
   reorderPersonalDetails,
 } = personalDetailsSlice.actions;

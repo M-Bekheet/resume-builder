@@ -13,15 +13,12 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body>
         <section className={styles.container}>
-
           <header className={styles.header}>
             Resume Builder
           </header>
-
           <StoreProvider>
             {children}
           </StoreProvider>
-
         </section>
       </body>
     </html>

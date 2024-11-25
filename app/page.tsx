@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Editor from "./components/editor";
 import Viewer from "./components/viewer";
-import { Button } from "@/components/ui/button";
 
 export default function IndexPage() {
   return (
-    <main>
-      <Editor />
-      <Viewer />
+    <main className="grid lg:grid-cols-2 gap-4">
+      <div className='p-10'>
+        <Editor />
+      </div>
+      <div className='p-10'>
+        <Viewer />
+      </div>
     </main>
   )
 }

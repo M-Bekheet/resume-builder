@@ -5,14 +5,12 @@ import {
   closestCenter,
   DndContext,
   DragEndEvent,
-  KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
   useSensor,
   useSensors
 } from '@dnd-kit/core';
 import {
   SortableContext,
-  sortableKeyboardCoordinates,
   verticalListSortingStrategy
 } from '@dnd-kit/sortable';
 import EditorSection from './sections';
@@ -24,10 +22,11 @@ function App() {
   const sectionsOrder = useAppSelector(state => state.sectionsOrder);
   const dispatch = useAppDispatch();
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 20
+      }
+    }),
   );
 
   function handleDragEnd(event: DragEndEvent) {
@@ -42,18 +41,23 @@ function App() {
   }
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext
-        items={sectionsOrder}
-        strategy={verticalListSortingStrategy}
+    <>
+      <input type="text" onChange={(e) => { console.log(e.target.value) }} />
+
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
       >
-        {sectionsOrder?.map(order => <EditorSection key={order?.id} order={order} />)}
-      </SortableContext>
-    </DndContext>
+        <SortableContext
+          items={sectionsOrder}
+          strategy={verticalListSortingStrategy}
+        >
+          {sectionsOrder?.map(order => <EditorSection key={order?.id} order={order} />)}
+        </SortableContext>
+      </DndContext>
+
+    </>
   );
 
 

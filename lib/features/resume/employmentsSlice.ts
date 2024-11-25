@@ -5,30 +5,47 @@ const employmentsSlice = createSlice({
   name: "employments",
   initialState: INITIAL_EMPLOYMENTS,
   reducers: {
-    addEmployment: (state, action: PayloadAction<Employment>) => {
-      state.push(action.payload);
+    addEmployment: (
+      state,
+      action: PayloadAction<{ sectionId: string; employment: Employment }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (section) section.employments.push(action.payload.employment);
     },
-    updateEmployment: (state, action: PayloadAction<Employment>) => {
-      const index = state.findIndex(
-        (employment) => employment.id === action.payload.id
+    updateEmployment: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        employment: Partial<Employment> & { id: string };
+      }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (!section) return;
+      const index = section.employments.findIndex(
+        (employment) => employment.id === action.payload.employment.id
       );
-      if (index !== -1) {
-        state[index] = action.payload;
-      }
+      if (index !== -1)
+        section.employments[index] = {
+          ...section.employments[index],
+          ...action.payload.employment,
+        };
     },
-    deleteEmployment: (state, action: PayloadAction<string>) => {
-      return state.filter((employment) => employment.id !== action.payload);
-    },
-    reorderEmployments: (state, action: PayloadAction<Employment[]>) => {
-      return action.payload;
+    deleteEmployment: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        employmentId: string;
+      }>
+    ) => {
+      const section = state.find((sec) => sec.id === action.payload.sectionId);
+      if (!section) return;
+      section.employments = section.employments.filter(
+        (employment) => employment.id !== action.payload.employmentId
+      );
     },
   },
 });
 
-export const {
-  addEmployment,
-  updateEmployment,
-  deleteEmployment,
-  reorderEmployments,
-} = employmentsSlice.actions;
+export const { addEmployment, updateEmployment, deleteEmployment } =
+  employmentsSlice.actions;
 export default employmentsSlice.reducer;

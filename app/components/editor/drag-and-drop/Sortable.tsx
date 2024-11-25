@@ -17,7 +17,6 @@ export function SortableItem(props: SortableItemProps) {
     transform,
     transition,
   } = useSortable({ id: props.id });
-
   const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
