@@ -5,30 +5,61 @@ const certificatesSlice = createSlice({
   name: "certificates",
   initialState: INITIAL_CERTIFICATES,
   reducers: {
-    addCertificate: (state, action: PayloadAction<Certificate>) => {
-      state.push(action.payload);
-    },
-    updateCertificate: (state, action: PayloadAction<Certificate>) => {
-      const index = state.findIndex(
-        (certificate) => certificate.id === action.payload.id
+    addCertificate: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        certificate: Certificate;
+      }>
+    ) => {
+      const sectionIndex = state.findIndex(
+        (section) => section.id === action.payload.sectionId
       );
-      if (index !== -1) {
-        state[index] = action.payload;
+      if (sectionIndex !== -1) {
+        state[sectionIndex].certificates.push(action.payload.certificate);
       }
     },
-    deleteCertificate: (state, action: PayloadAction<string>) => {
-      return state.filter((certificate) => certificate.id !== action.payload);
+
+    updateCertificate: (
+      state,
+      action: PayloadAction<{
+        sectionId: string;
+        certificate: Certificate;
+      }>
+    ) => {
+      const sectionIndex = state.findIndex(
+        (section) => section.id === action.payload.sectionId
+      );
+      if (sectionIndex !== -1) {
+        const certificateIndex = state[sectionIndex].certificates.findIndex(
+          (certificate) => certificate.id === action.payload.certificate.id
+        );
+        if (certificateIndex !== -1) {
+          state[sectionIndex].certificates[certificateIndex] =
+            action.payload.certificate;
+        }
+      }
     },
-    reorderCertificates: (state, action: PayloadAction<Certificate[]>) => {
-      return action.payload;
+
+    deleteCertificate: (
+      state,
+      action: PayloadAction<{ sectionId: string; certificateId: string }>
+    ) => {
+      const sectionIndex = state.findIndex(
+        (section) => section.id === action.payload.sectionId
+      );
+      if (sectionIndex !== -1) {
+        const certificateIndex = state[sectionIndex].certificates.findIndex(
+          (certificate) => certificate.id === action.payload.certificateId
+        );
+        if (certificateIndex !== -1) {
+          state[sectionIndex].certificates.splice(certificateIndex, 1);
+        }
+      }
     },
   },
 });
 
-export const {
-  addCertificate,
-  updateCertificate,
-  deleteCertificate,
-  reorderCertificates,
-} = certificatesSlice.actions;
+export const { addCertificate, updateCertificate, deleteCertificate } =
+  certificatesSlice.actions;
 export default certificatesSlice.reducer;
