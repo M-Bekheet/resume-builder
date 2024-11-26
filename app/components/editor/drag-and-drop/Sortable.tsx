@@ -16,10 +16,14 @@ export function SortableItem(props: SortableItemProps) {
     setNodeRef,
     transform,
     transition,
+    isDragging
   } = useSortable({ id: props.id });
   const style: React.CSSProperties = {
     transform: CSS.Translate.toString(transform),
     transition,
+    zIndex: isDragging ? 1 : 0,
+    background: isDragging ? '#fdfdfd6a' : 'transparent',
+    position: 'relative',
   };
 
   return (
