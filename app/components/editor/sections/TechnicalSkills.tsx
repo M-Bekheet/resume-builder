@@ -33,7 +33,6 @@ function TechnicalSkills({ id }: { id: string }) {
       skill: '',
       level: 'Novice',
     };
-    console.log({ newSkill })
     dispatch(addTechnicalSkill({ sectionId: id, skill: newSkill }));
   };
 
@@ -76,7 +75,7 @@ function TechnicalSkills({ id }: { id: string }) {
 
       <header className='flex items-center gap-2 mt-6 mb-2'>
         <Icon icon="icon-park-outline:drag" />
-        <input className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none" value={technicalSkills?.sectionName} onChange={(e) => {
+        <input className="w-full text-2xl p-4 outline:border-none font-semibold tracking-tight border-none" value={technicalSkills?.sectionName} onChange={(e) => {
           dispatch(updateTechnicalSkillsSectionName({
             name: e.target.value,
             sectionId: id

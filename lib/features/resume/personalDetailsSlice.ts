@@ -16,7 +16,6 @@ const personalDetailsSlice = createSlice({
       const index = state.findIndex(
         (detail) => detail.id === action.payload.id
       );
-      console.log("changes", changes);
       if (index !== -1) state[index] = { ...state[index], ...changes };
     },
     updateAdditionalInfo: (

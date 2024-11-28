@@ -10,10 +10,10 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en">
+    <html lang="en" className={styles.layout}>
       <body>
         <section className='pb-[200px]'>
-          <header className={`${styles.header} text-4xl m-auto text-center mt-2 mb-0`}>
+          <header className={`${styles.header} print:hidden text-4xl m-auto text-center mt-2 mb-6`}>
             <h1>
               Resume Builder
             </h1>

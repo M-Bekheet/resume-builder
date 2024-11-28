@@ -1,0 +1,12 @@
+@media print {
+  .layout body *,
+  .layout *::before,
+  .layout *::after {
+    -webkit-print-color-adjust: exact !important; /* Chrome, Safari, Edge */
+    print-color-adjust: exact !important; /*Firefox*/
+  }
+}
+@page {
+  size: A4;
+  margin: 0mm;
+}

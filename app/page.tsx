@@ -5,12 +5,10 @@ import Viewer from "./components/viewer";
 export default function IndexPage() {
   return (
     <main className="grid lg:grid-cols-2 gap-2 px-8">
-      <div >
+      <div className="print:hidden" >
         <Editor />
       </div>
-      <div className='pt-10 '>
-        <Viewer />
-      </div>
+      <Viewer />
     </main>
   )
 }

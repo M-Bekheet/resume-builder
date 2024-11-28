@@ -2,3 +2,15 @@
   color: #0070f3;
   text-decoration: none;
 }
+.viewer ul {
+  list-style: disc;
+}
+.viewer li {
+  margin-left: 12px;
+}
+
+@media print {
+  .viewer > section {
+    background: transparent;
+  }
+}

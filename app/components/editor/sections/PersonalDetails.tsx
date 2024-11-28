@@ -71,7 +71,7 @@ function PersonalDetails({ id }: { id: string }) {
     <section className='px-1'>
       <header className='flex items-center gap-2 mt-6 mb-2 h-20'>
         <Icon icon="icon-park-outline:drag" />
-        <input className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none" value={personalDetail?.sectionName} onChange={(e) => {
+        <input className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none w-full" value={personalDetail?.sectionName} onChange={(e) => {
           dispatch(updatePersonalDetail({ "sectionName": e.target.value, id }))
         }} />
         <DropdownMenu >
@@ -127,7 +127,6 @@ function PersonalDetails({ id }: { id: string }) {
         <div className='block w-full grid-cols-subgrid md:col-span-2'>
 
           <Button type='button' className=' justify-start  text-start hover:no-underline p-0 m-0' variant="link" onClick={() => setShowAdditionalInfo(prev => {
-            console.log('prev', prev)
             return !prev
           })}>Edit additional details <Icon icon="mdi:menu-swap-outline" /></Button>
         </div>
@@ -167,7 +166,6 @@ function PersonalDetails({ id }: { id: string }) {
             label="Summary"
             value={personalDetail.summary}
             onChange={change => {
-              console.log('change', change)
               dispatch(updatePersonalDetail({ "summary": change, id }))
             }}
             name="summary"

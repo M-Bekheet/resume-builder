@@ -15,7 +15,6 @@ interface IRichtext {
 
 export const RichtextEditor = memo(({ label, onChange, value }: IRichtext) => {
   const editorContainerRef = useRef<HTMLTextAreaElement | null>(null);
-  console.log('value', value)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const editorRef = useRef<any>(null);
   const [editorInstanceCreated, setEditorInstanceCreated] = useState(false);
