@@ -12,7 +12,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body>
-        <section className={styles.container}>
+        <section className='pb-[200px]'>
           <header className={`${styles.header} text-4xl m-auto text-center mt-2 mb-0`}>
             <h1>
               Resume Builder

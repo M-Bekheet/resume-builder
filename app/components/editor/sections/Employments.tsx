@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import { addEmployment, deleteEmployment, updateEmployment, updateEmploymentsSectionName } from '@/lib/features/resume/employmentsSlice';
+import { addEmployment, deleteEmployment, updateEmployment } from '@/lib/features/resume/employmentsSlice';
 import { Icon } from '@iconify/react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from '@/components/ui/accordion';
@@ -9,15 +9,17 @@ import { Button } from '@/components/ui/button';
 import { DatePicker } from '@/components/ui/datePicker';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { closeDialog, openDialog } from '@/lib/features/dialog/dialogSlice';
 import { RootState } from '@/lib/store';
 import { RichtextEditor } from '../../richtext';
+import { Switch } from '@/components/ui/switch';
 
 function Employments({ id }: { id: string }) {
   const dispatch = useDispatch();
   const employments = useSelector((state: RootState) => state.employments?.find((employment) => employment.id === id)?.employments) || [];
-  console.log({ employments })
 
-  const handleChange = (employmentId: string, name: string, value: string) => {
+
+  const handleChange = (employmentId: string, name: string, value: string | boolean) => {
     dispatch(updateEmployment({
       sectionId: id,
       employment: {
@@ -43,11 +45,21 @@ function Employments({ id }: { id: string }) {
     }));
   };
 
-  const handleDeleteEmployment = (employmentId: string) => {
-    dispatch(deleteEmployment({
-      sectionId: id,
-      employmentId
-    }));
+  const deleteEmploymentHandler = (employmentId: string) => {
+
+    dispatch(openDialog({
+      description: 'Are you sure you want to delete this employment?',
+      title: 'Delete Employment',
+      actionText: 'Delete',
+      cancelText: 'Cancel',
+      onContinue: () => {
+        dispatch(deleteEmployment({
+          sectionId: id,
+          employmentId
+        }))
+      },
+      onCancel: () => dispatch(closeDialog())
+    }))
   };
 
   if (!employments) return null;
@@ -56,10 +68,11 @@ function Employments({ id }: { id: string }) {
     <section className='px-1' >
       <header className='flex items-center gap-2 mt-6 mb-2'>
         <Icon icon="icon-park-outline:drag" />
-        <h3 className="scroll-m-20 pl-2 text-sm font-semibold tracking-tight">
+        <h3 className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none">
           Employments
         </h3>
       </header>
+
 
 
       {employments.map(employment => (
@@ -90,20 +103,28 @@ function Employments({ id }: { id: string }) {
                     />
                   </div>
                   <div>
-                    <Label className='inline-block mb-2'>Start Date</Label>
+                    <Label className='block w-full mb-2'>Start Date</Label>
                     <DatePicker
                       date={new Date(employment.startDate)}
                       onSelect={(newDate) => handleChange(employment.id, 'startDate', newDate?.toISOString() || "")}
+                      disabled={false}
                     />
                   </div>
                   <div>
-                    <Label className='inline-block mb-2'>End Date</Label>
-                    <Input
-                      type="date"
-                      value={employment.endDate}
-                      onChange={(e) => handleChange(employment.id, 'endDate', e.target.value)}
+                    <Label className='block w-full mb-2'>End Date</Label>
+                    <DatePicker
+                      date={employment.endDate ? new Date(employment.endDate) : undefined}
+                      onSelect={(newDate) => handleChange(employment.id, 'endDate', newDate?.toISOString() || "")}
                       disabled={employment.currentlyWorking}
                     />
+                  </div>
+                  <div className='flex align-middle items-center gap-2'>
+                    <Label className='font-semibold' >Currently working here</Label>
+                    <Switch className='' checked={employment.currentlyWorking} onCheckedChange={(checked) => {
+                      handleChange(employment.id, 'currentlyWorking',
+                        checked)
+                      if (checked) handleChange(employment.id, 'endDate', "")
+                    }} />
                   </div>
                   <div className="md:col-span-2">
                     <Label className='inline-block mb-2'>Description</Label>
@@ -119,8 +140,10 @@ function Employments({ id }: { id: string }) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <Button variant="outline" onClick={() => handleDeleteEmployment(employment.id)} className="mt-4 border-none ">
-            <Icon icon="mdi:trash-can-outline" color='#ff3b3b' />
+          <Button variant="outline"
+            onClick={() => deleteEmploymentHandler(employment.id)}
+            className="mb-auto mt-2 border-none ">
+            <Icon icon="mdi:trash-can-outline" color='rgb(2, 8, 23)' />
           </Button>
         </div>
       ))}

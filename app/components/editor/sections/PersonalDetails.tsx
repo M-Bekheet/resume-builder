@@ -17,7 +17,6 @@ function PersonalDetails({ id }: { id: string }) {
     state.personalDetails.find(detail => detail.id === id)
   );
 
-
   const [showAdditionalInfo, setShowAdditionalInfo] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -52,12 +51,11 @@ function PersonalDetails({ id }: { id: string }) {
 
   return (
     <section className='px-1'>
-      <header className='flex items-center gap-2 mt-6 mb-2'>
+      <header className='flex items-center gap-2 mt-6 mb-2 h-20'>
         <Icon icon="icon-park-outline:drag" />
-        <Input className="scroll-m-20 text-2xl font-semibold tracking-tight border-none " value={personalDetail?.sectionName} onChange={(e) => {
+        <input className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none" value={personalDetail?.sectionName} onChange={(e) => {
           dispatch(updatePersonalDetail({ "sectionName": e.target.value, id }))
         }} />
-
       </header>
 
       <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -134,7 +132,7 @@ function PersonalDetails({ id }: { id: string }) {
           </>
         ) : null}
 
-        <div className="lg:col-span-2">
+        <div className="col-span-2">
           <Label className='inline-block mb-1'>Summary</Label>
           <RichtextEditor
             label="Summary"

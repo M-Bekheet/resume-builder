@@ -14,6 +14,7 @@ import {
   verticalListSortingStrategy
 } from '@dnd-kit/sortable';
 import EditorSection from './sections';
+import Dialog from '../dialog';
 
 
 
@@ -56,6 +57,7 @@ function App() {
           {sectionsOrder?.map(order => <EditorSection key={order?.id} order={order} />)}
         </SortableContext>
       </DndContext>
+      <Dialog />
 
     </>
   );

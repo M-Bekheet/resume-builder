@@ -10,11 +10,15 @@ import { addTechnicalSkill, deleteTechnicalSkill, updateTechnicalSkill, updateTe
 import { TechnicalSkill } from '@/lib/features/resume/utils';
 import { RootState } from '@/lib/store';
 import { Icon } from '@iconify/react';
+import { useRef } from 'react';
+import { openDialog, closeDialog } from '@/lib/features/dialog/dialogSlice';
 
 function TechnicalSkills({ id }: { id: string }) {
   const dispatch = useDispatch();
   const sections = useSelector((state: RootState) => state.technicalSkills)
   const technicalSkills = sections?.find((sec) => sec.id === id);
+
+  const initialSkillsLength = useRef(technicalSkills?.skills.length || 0);
 
   const handleChange = (payload: Partial<TechnicalSkill>) => {
     dispatch(updateTechnicalSkill({
@@ -33,11 +37,21 @@ function TechnicalSkills({ id }: { id: string }) {
     dispatch(addTechnicalSkill({ sectionId: id, skill: newSkill }));
   };
 
-  const handleDeleteEmployment = (employmentId: string) => {
-    dispatch(deleteTechnicalSkill({
-      sectionId: id,
-      skillId: employmentId
-    }));
+  const deleteSkillHandler = (skillId: string) => {
+
+    dispatch(openDialog({
+      description: 'Are you sure you want to delete this skill?',
+      title: 'Delete Skill',
+      actionText: 'Delete',
+      cancelText: 'Cancel',
+      onContinue: () => {
+        dispatch(deleteTechnicalSkill({
+          sectionId: id,
+          skillId: skillId
+        }))
+      },
+      onCancel: () => dispatch(closeDialog())
+    }))
   };
 
   if (!technicalSkills) return null
@@ -47,7 +61,7 @@ function TechnicalSkills({ id }: { id: string }) {
 
       <header className='flex items-center gap-2 mt-6 mb-2'>
         <Icon icon="icon-park-outline:drag" />
-        <Input className="scroll-m-20 text-2xl font-semibold tracking-tight border-none " value={technicalSkills?.sectionName} onChange={(e) => {
+        <input className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none" value={technicalSkills?.sectionName} onChange={(e) => {
           dispatch(updateTechnicalSkillsSectionName({
             name: e.target.value,
             sectionId: id
@@ -55,10 +69,10 @@ function TechnicalSkills({ id }: { id: string }) {
         }} />
 
       </header>
-      {technicalSkills.skills.map(skill => (
+      {technicalSkills.skills.map((skill, i) => (
         <div className='flex gap-2' key={skill.id}>
-          <Accordion type="multiple" className='flex-1'  >
-            <AccordionItem value={skill.id}>
+          <Accordion type="multiple" defaultChecked className='flex-1' defaultValue={["openByDefault"]} >
+            <AccordionItem value={i === technicalSkills.skills?.length - 1 ? "openByDefault" : skill.id} >
               <AccordionTrigger className='hover:no-underline'>{skill.skill || 'New Skill'}</AccordionTrigger>
               <AccordionContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1">
@@ -90,8 +104,8 @@ function TechnicalSkills({ id }: { id: string }) {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <Button variant="outline" onClick={() => handleDeleteEmployment(skill.id)} className="mt-4 border-none ">
-            <Icon icon="mdi:trash-can-outline" color='#ff3b3b' />
+          <Button variant="outline" onClick={() => deleteSkillHandler(skill.id)} className="mb-auto mt-2 border-none ">
+            <Icon icon="mdi:trash-can-outline" color='rgb(2, 8, 23)' />
           </Button>
         </div>
       ))}

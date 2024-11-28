@@ -13,13 +13,14 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 
-export function DatePicker({ date, onSelect }: { date?: Date, onSelect: (date: Date | undefined) => void }) {
+export function DatePicker({ date, disabled, onSelect }: { date?: Date, disabled: boolean; onSelect: (date: Date | undefined,) => void }) {
 
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
+          disabled={disabled}
           className={cn(
             "w-[240px] justify-start text-left font-normal",
             !date && "text-muted-foreground"

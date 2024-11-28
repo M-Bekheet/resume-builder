@@ -3,6 +3,7 @@
   "author": "Mahmoud Bekheet",
   "scripts": {
     "dev": "next",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start"
   },
@@ -11,6 +12,7 @@
     "@dnd-kit/sortable": "^9.0.0",
     "@iconify/react": "^5.0.2",
     "@radix-ui/react-accordion": "^1.2.1",
+    "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-select": "^2.1.2",

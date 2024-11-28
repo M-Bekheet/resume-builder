@@ -1,24 +1,16 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
-import personalDetailsReducer from "./features/resume/personalDetailsSlice";
-import technicalSkillsReducer from "./features/resume/technicalSkillsSlice";
-import employmentsReducer from "./features/resume/employmentsSlice";
+import dialogReducer from "./features/dialog/dialogSlice";
 import certificatesReducer from "./features/resume/certificatesSlice";
 import educationsReducer from "./features/resume/educationSlice";
+import employmentsReducer from "./features/resume/employmentsSlice";
+import personalDetailsReducer from "./features/resume/personalDetailsSlice";
 import sectionsOrderReducer from "./features/resume/sectionOrderSlice";
+import technicalSkillsReducer from "./features/resume/technicalSkillsSlice";
 
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  persistReducer,
-  persistStore,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from "redux-persist";
+import { PersistConfig, persistReducer, persistStore } from "redux-persist";
 
 const rootReducer = combineSlices({
   personalDetails: personalDetailsReducer,
@@ -27,13 +19,15 @@ const rootReducer = combineSlices({
   certificates: certificatesReducer,
   educations: educationsReducer,
   sectionsOrder: sectionsOrderReducer,
+  dialog: dialogReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const persistConfig = {
+const persistConfig: PersistConfig<RootState> = {
   key: "root",
   storage,
+  blacklist: ["dialog"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -51,9 +45,7 @@ export const makeStore = () => {
       reducer: persistedReducer,
       middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-          serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-          },
+          serializableCheck: false,
         }),
     });
     store.__persistor = persistStore(store);
