@@ -19,10 +19,10 @@ const EditorSection = ({ order }: { order: SectionOrder }) => {
       return <SortableItem id={order?.id} ><TechnicalSkills id={order.id} /></SortableItem>;
     case 'employments':
       return <SortableItem id={order?.id} ><Employments id={order.id} /></SortableItem>;
-    case 'certificates':
-      return <SortableItem id={order?.id} ><Certificates id={order.id} /></SortableItem>;
-    case 'educations':
-      return <SortableItem id={order?.id} ><Educations id={order.id} /></SortableItem>;
+    // case 'certificates':
+    //   return <SortableItem id={order?.id} ><Certificates id={order.id} /></SortableItem>;
+    // case 'educations':
+    //   return <SortableItem id={order?.id} ><Educations id={order.id} /></SortableItem>;
     default:
       return null;
   }
