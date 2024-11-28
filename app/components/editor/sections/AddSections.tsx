@@ -64,7 +64,7 @@ function AddSections() {
   ];
 
   return (
-    <section className="p-6 space-y-4">
+    <section className="mt-12 space-y-4">
       <header className="space-y-2">
         <h2 className="text-2xl font-bold">Add Sections</h2>
         <p className="text-gray-600">

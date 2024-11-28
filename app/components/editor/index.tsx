@@ -44,8 +44,6 @@ function App() {
 
   return (
     <>
-      <input type="text" onChange={(e) => { console.log(e.target.value) }} />
-
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

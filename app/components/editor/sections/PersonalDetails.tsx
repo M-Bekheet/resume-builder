@@ -1,14 +1,18 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { updateAdditionalInfo, updatePersonalDetail } from '@/lib/features/resume/personalDetailsSlice';
+import { deletePersonalDetail, updateAdditionalInfo, updatePersonalDetail } from '@/lib/features/resume/personalDetailsSlice';
 import { personalDetailsSchema } from '@/lib/schema';
 import { RootState } from '@/lib/store';
 import { Icon } from '@iconify/react';
-import { Label } from '@radix-ui/react-label';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { RichtextEditor } from '../../richtext';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Label } from '@/components/ui/label';
+import { removeSection } from '@/lib/features/resume/sectionOrderSlice';
+import { openDialog, closeDialog } from '@/lib/features/dialog/dialogSlice';
+import { deleteEmployment } from '@/lib/features/resume/employmentsSlice';
 
 
 function PersonalDetails({ id }: { id: string }) {
@@ -48,6 +52,20 @@ function PersonalDetails({ id }: { id: string }) {
     }
   };
 
+  function deleteSectionHandler() {
+    dispatch(openDialog({
+      description: 'Are you sure you want to delete this section?',
+      title: 'Delete Employment',
+      actionText: 'Delete',
+      cancelText: 'Cancel',
+      onContinue: () => {
+        dispatch(removeSection(id));
+        dispatch(deletePersonalDetail(id))
+      },
+      onCancel: () => dispatch(closeDialog())
+    }))
+  }
+
 
   return (
     <section className='px-1'>
@@ -56,6 +74,17 @@ function PersonalDetails({ id }: { id: string }) {
         <input className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none" value={personalDetail?.sectionName} onChange={(e) => {
           dispatch(updatePersonalDetail({ "sectionName": e.target.value, id }))
         }} />
+        <DropdownMenu >
+          <DropdownMenuTrigger className='ml-auto'><div className='p-4 hover:bg-slate-50'>
+            <Icon icon="pepicons-pop:dots-y" />
+          </div></DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>
+              <DropdownMenuItem onClick={deleteSectionHandler}>Delete Section</DropdownMenuItem>
+            </DropdownMenuLabel>
+
+          </DropdownMenuContent>
+        </DropdownMenu>
       </header>
 
       <form className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -6,19 +6,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select';
-import { addTechnicalSkill, deleteTechnicalSkill, updateTechnicalSkill, updateTechnicalSkillsSectionName } from '@/lib/features/resume/technicalSkillsSlice';
+import { closeDialog, openDialog } from '@/lib/features/dialog/dialogSlice';
+import { addTechnicalSkill, deleteTechnicalSkill, deleteTechnicalSkillsSection, updateTechnicalSkill, updateTechnicalSkillsSectionName } from '@/lib/features/resume/technicalSkillsSlice';
 import { TechnicalSkill } from '@/lib/features/resume/utils';
 import { RootState } from '@/lib/store';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Icon } from '@iconify/react';
-import { useRef } from 'react';
-import { openDialog, closeDialog } from '@/lib/features/dialog/dialogSlice';
+import { removeSection } from '@/lib/features/resume/sectionOrderSlice';
 
 function TechnicalSkills({ id }: { id: string }) {
   const dispatch = useDispatch();
   const sections = useSelector((state: RootState) => state.technicalSkills)
   const technicalSkills = sections?.find((sec) => sec.id === id);
 
-  const initialSkillsLength = useRef(technicalSkills?.skills.length || 0);
 
   const handleChange = (payload: Partial<TechnicalSkill>) => {
     dispatch(updateTechnicalSkill({
@@ -54,6 +54,21 @@ function TechnicalSkills({ id }: { id: string }) {
     }))
   };
 
+
+  function deleteSectionHandler() {
+    dispatch(openDialog({
+      description: 'Are you sure you want to delete this section?',
+      title: 'Delete Employment',
+      actionText: 'Delete',
+      cancelText: 'Cancel',
+      onContinue: () => {
+        dispatch(removeSection(id));
+        dispatch(deleteTechnicalSkillsSection(id))
+      },
+      onCancel: () => dispatch(closeDialog())
+    }))
+  }
+
   if (!technicalSkills) return null
 
   return (
@@ -67,6 +82,18 @@ function TechnicalSkills({ id }: { id: string }) {
             sectionId: id
           }))
         }} />
+
+        <DropdownMenu >
+          <DropdownMenuTrigger className='ml-auto'><div className='p-4 hover:bg-slate-50'>
+            <Icon icon="pepicons-pop:dots-y" />
+          </div></DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>
+              <DropdownMenuItem onClick={deleteSectionHandler}>Delete Section</DropdownMenuItem>
+            </DropdownMenuLabel>
+
+          </DropdownMenuContent>
+        </DropdownMenu>
 
       </header>
       {technicalSkills.skills.map((skill, i) => (

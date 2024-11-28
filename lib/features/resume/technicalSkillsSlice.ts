@@ -53,6 +53,10 @@ const technicalSkillsSlice = createSlice({
       if (section) section.sectionName = action.payload.name;
     },
 
+    deleteTechnicalSkillsSection: (state, action: PayloadAction<string>) => {
+      return state.filter((section) => section.id !== action.payload);
+    },
+
     addSkillsSection: (state, action: PayloadAction<string>) => {
       state.push({
         id: action.payload,
@@ -69,5 +73,6 @@ export const {
   deleteTechnicalSkill,
   updateTechnicalSkillsSectionName,
   addSkillsSection,
+  deleteTechnicalSkillsSection,
 } = technicalSkillsSlice.actions;
 export default technicalSkillsSlice.reducer;

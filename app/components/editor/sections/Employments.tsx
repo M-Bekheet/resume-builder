@@ -1,18 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 
-import { addEmployment, deleteEmployment, updateEmployment } from '@/lib/features/resume/employmentsSlice';
+import { addEmployment, deleteEmployment, removeEmploymentSection, updateEmployment } from '@/lib/features/resume/employmentsSlice';
 import { Icon } from '@iconify/react';
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { DatePicker } from '@/components/ui/datePicker';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import { closeDialog, openDialog } from '@/lib/features/dialog/dialogSlice';
+import { removeSection } from '@/lib/features/resume/sectionOrderSlice';
 import { RootState } from '@/lib/store';
 import { RichtextEditor } from '../../richtext';
-import { Switch } from '@/components/ui/switch';
 
 function Employments({ id }: { id: string }) {
   const dispatch = useDispatch();
@@ -62,6 +64,21 @@ function Employments({ id }: { id: string }) {
     }))
   };
 
+
+  function deleteSectionHandler() {
+    dispatch(openDialog({
+      description: 'Are you sure you want to delete this section?',
+      title: 'Delete Employment',
+      actionText: 'Delete',
+      cancelText: 'Cancel',
+      onContinue: () => {
+        dispatch(removeSection(id));
+        dispatch(removeEmploymentSection(id))
+      },
+      onCancel: () => dispatch(closeDialog())
+    }))
+  }
+
   if (!employments) return null;
 
   return (
@@ -71,6 +88,18 @@ function Employments({ id }: { id: string }) {
         <h3 className="text-2xl p-4 outline:border-none font-semibold tracking-tight border-none">
           Employments
         </h3>
+
+        <DropdownMenu >
+          <DropdownMenuTrigger className='ml-auto'><div className='p-4 hover:bg-slate-50'>
+            <Icon icon="pepicons-pop:dots-y" />
+          </div></DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>
+              <DropdownMenuItem onClick={deleteSectionHandler}>Delete Section</DropdownMenuItem>
+            </DropdownMenuLabel>
+
+          </DropdownMenuContent>
+        </DropdownMenu>
       </header>
 
 
