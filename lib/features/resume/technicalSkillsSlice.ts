@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { INITIAL_TECHNICAL_SKILLS, TechnicalSkill } from "./utils";
+import { addSection } from "./sectionOrderSlice";
 
 const technicalSkillsSlice = createSlice({
   name: "technicalSkills",
@@ -51,6 +52,14 @@ const technicalSkillsSlice = createSlice({
       const section = state.find((sec) => sec.id === action.payload.sectionId);
       if (section) section.sectionName = action.payload.name;
     },
+
+    addSkillsSection: (state, action: PayloadAction<string>) => {
+      state.push({
+        id: action.payload,
+        sectionName: "Technical Skills",
+        skills: [],
+      });
+    },
   },
 });
 
@@ -59,5 +68,6 @@ export const {
   updateTechnicalSkill,
   deleteTechnicalSkill,
   updateTechnicalSkillsSectionName,
+  addSkillsSection,
 } = technicalSkillsSlice.actions;
 export default technicalSkillsSlice.reducer;

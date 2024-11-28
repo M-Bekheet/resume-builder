@@ -12,11 +12,12 @@ function PersonalDetailsViewer({ id }: { id: string }) {
   if (!personalDetails) return null;
 
   return (
-    <section className="p-4">
+    <section className="p-4 col-span-2">
+      <h1 className='text-4xl mb-2 font-bold'>{personalDetails?.sectionName || ""}</h1>
       <header>
-        <h1 className="text-xl font-bold">
+        <h2 className="text-lg font-bold">
           {personalDetails.firstName} {personalDetails.lastName}
-        </h1>
+        </h2>
         <p className="text-lg">{personalDetails.jobTitle}</p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

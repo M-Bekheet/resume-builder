@@ -38,6 +38,21 @@ const personalDetailsSlice = createSlice({
     deletePersonalDetail: (state, action: PayloadAction<string>) => {
       return state.filter((detail) => detail.id !== action.payload);
     },
+    addPersonalDetailsSection: (state, action: PayloadAction<string>) => {
+      state.push({
+        ...INITIAL_PERSONAL_DETAILS,
+        id: action.payload,
+        sectionName: "Personal Details",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        country: "",
+        city: "",
+        jobTitle: "",
+        summary: "",
+      });
+    },
   },
 });
 
@@ -46,5 +61,6 @@ export const {
   updatePersonalDetail,
   updateAdditionalInfo,
   deletePersonalDetail,
+  addPersonalDetailsSection,
 } = personalDetailsSlice.actions;
 export default personalDetailsSlice.reducer;

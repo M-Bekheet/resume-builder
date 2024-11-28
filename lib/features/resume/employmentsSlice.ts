@@ -51,6 +51,14 @@ const employmentsSlice = createSlice({
       const section = state.find((sec) => sec.id === action.payload.sectionId);
       if (section) section.sectionName = action.payload.name;
     },
+
+    addEmploymentSection: (state, action: PayloadAction<string>) => {
+      state.push({
+        id: action.payload,
+        sectionName: "Employment",
+        employments: [],
+      });
+    },
   },
 });
 
@@ -59,5 +67,6 @@ export const {
   updateEmployment,
   deleteEmployment,
   updateEmploymentsSectionName,
+  addEmploymentSection,
 } = employmentsSlice.actions;
 export default employmentsSlice.reducer;

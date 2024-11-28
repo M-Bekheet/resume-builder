@@ -13,10 +13,10 @@ function SectionViewer({ order }: {
   if (!section) return null
 
   switch (order.type) {
-    // case 'employments':
-    //   return <EmploymentsViewer id={order.id} />
-    // case 'technicalSkills':
-    //   return <TechnicalSkillsViewer id={order.id} />
+    case 'employments':
+      return <EmploymentsViewer id={order.id} />
+    case 'technicalSkills':
+      return <TechnicalSkillsViewer id={order.id} />
     case 'personalDetails':
       return <PersonalDetailsViewer id={order.id} />
     default:

@@ -15,6 +15,7 @@ import {
 } from '@dnd-kit/sortable';
 import EditorSection from './sections';
 import Dialog from '../dialog';
+import AddSections from './sections/AddSections';
 
 
 
@@ -57,6 +58,7 @@ function App() {
           {sectionsOrder?.map(order => <EditorSection key={order?.id} order={order} />)}
         </SortableContext>
       </DndContext>
+      <AddSections />
       <Dialog />
 
     </>

@@ -57,9 +57,21 @@ const educationsSlice = createSlice({
         }
       }
     },
+
+    addEducationSection: (state, action: PayloadAction<string>) => {
+      state.push({
+        id: action.payload,
+        sectionName: "Education",
+        educations: [],
+      });
+    },
   },
 });
 
-export const { addEducation, updateEducation, deleteEducation } =
-  educationsSlice.actions;
+export const {
+  addEducation,
+  updateEducation,
+  deleteEducation,
+  addEducationSection,
+} = educationsSlice.actions;
 export default educationsSlice.reducer;
